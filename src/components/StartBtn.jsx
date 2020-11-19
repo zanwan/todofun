@@ -1,0 +1,17 @@
+import * as React from 'react';
+import { Link } from 'react-router-dom';
+import { Button_normal as Button } from '../components/style/Button_normal';
+
+const style = {
+  marginTop: '51px',
+};
+
+export function StartBtn(props) {
+  const [btnText, setbtnText] = React.useState(props.title);
+
+  return (
+    <Link to={{ pathname: '/home', state: { fromIntro: true } }} style={{ height: 0 }}>
+      <Button style={style}>{btnText} </Button>
+    </Link>
+  );
+}
