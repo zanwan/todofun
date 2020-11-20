@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button_normal as Button } from '../components/style/Button_normal';
+import { Button_normal as Button } from './style/Button_normal';
 import { db } from '../db/indexedDB';
 import { uuid } from '../utils/uuid.js';
 
@@ -8,21 +8,16 @@ const style = {
 };
 
 export function PutTodoBtn({ todoData, setTodo }) {
-  console.log('傳進來的資料', todoData);
+  console.log('傳進來的修改資料', todoData);
 
   function handlePutTodo(e) {
     e.preventDefault();
     db.todo
-      .update(
-        {
-          uuid: todoData.uuid,
-        },
-        {
-          title: todoData.title,
-          content: todoData.content,
-          done: false,
-        },
-      )
+      .update(todoData.id, {
+        ...todoData,
+        title: todoData.title,
+        content: todoData.content,
+      })
       .then(() => {
         setTodo({ title: todoData.title, content: todoData.content });
       });

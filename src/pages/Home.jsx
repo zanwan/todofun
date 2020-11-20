@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { WrapperFlip } from '../components/style/WrapperFlip';
 import { Jar } from '../components/JarIcon';
@@ -7,8 +7,7 @@ import { AllTodoBtn } from '../components/AllTodoBtn';
 import { AddTodo } from '../components/AddTodoFrom';
 
 export const Home = ({ pathState }) => {
-  console.log('pathState===>', pathState);
-  const [showAddTodoForm, setAddTodoForm] = React.useState(false);
+  const [showAddTodoForm, setAddTodoForm] = useState(false);
 
   const handleShowAddTodo = () => {
     setAddTodoForm(true);

@@ -109,7 +109,11 @@ export const AddTodo = ({ isVisible, setAddTodoForm }) => {
                 rows='5'
                 placeholder='什麼有趣的事...'
               />
-              <SubmitNewTodoBtn todoData={value} />
+              <SubmitNewTodoBtn
+                todoData={value}
+                setValue={setValue}
+                setAddTodoForm={setAddTodoForm}
+              />
             </AddTodoFormUI>
           </motion.div>
         </motion.div>

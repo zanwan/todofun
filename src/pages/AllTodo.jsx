@@ -7,8 +7,9 @@ import { Link } from 'react-router-dom';
 import { AlltodoTitle, AllTodoTitle } from '../components/style/AllTodoTitle';
 import { TodoItem } from '../components/style/TodoItem';
 import { HorizontalLine } from '../components/style/HorizontalLine';
-import { PaperGraphic } from '../components/style/Paper';
+import { ViewTodoModal } from '../components/ViewTodoModal';
 import { EditTodo } from '../components/EditTodoForm';
+import { DeleteAllModal } from '../components/DeleteAllComfirmModal';
 // DB
 import { db } from '../db/indexedDB';
 
@@ -35,11 +36,14 @@ export function AllTodo() {
   const [todos, setTodos] = useState([{ uuid: 0, title: '' }]);
   const [showEditTodo, setShowEditTodo] = useState(false);
   const [todo, setTodo] = useState({});
+  const [showDeleteAllModal, setShowDeleteAllModal] = useState(false);
+  const [showViewTodoModal, setShowViewTodoModal] = useState(false);
+
   // 從 indexedDB 撈資料
   let todosData;
   async function getTodoData() {
     try {
-      todosData = await db.todo.orderBy('title').toArray();
+      todosData = await db.todo.orderBy('id').reverse().toArray();
     } catch (error) {
       console.log(error);
     }
@@ -50,54 +54,65 @@ export function AllTodo() {
   useEffect(() => {
     getTodoData().then((res) => {
       setTodos(res);
-      console.log(res);
     });
   }, []);
 
   useEffect(() => {
     getTodoData().then((res) => {
       setTodos(res);
-      console.log(res);
     });
   }, [todo]);
 
-  async function queryTodoData(id) {
+  async function queryTodoData(uuid) {
     let todoData;
     try {
-      todoData = await db.todo.where({ uuid: id }).toArray();
+      todoData = await db.todo.where({ uuid: uuid }).toArray();
     } catch (error) {
       console.log(error);
     }
     return todoData;
   }
 
-  function handleShowEditTodoData(id) {
-    console.log('查該筆資料，id:', id);
-    queryTodoData(id).then((res) => {
-      console.log('撈取檔案', res);
+  function handleShowEditTodoData(uuid) {
+    queryTodoData(uuid).then((res) => {
       setTodo(res[0]);
       setShowEditTodo(true);
     });
   }
 
+  function handleShowViewTodoData(uuid) {
+    queryTodoData(uuid).then((res) => {
+      setTodo(res[0]);
+      setShowViewTodoModal(true);
+    });
+  }
+
   return (
     <WrapperFlip variants={animFlipBack} initial='hidden' animate='show' exit='exit'>
-      <AlltodoTitle />
+      <AlltodoTitle setShowDeleteAllModal={setShowDeleteAllModal} />
       {todos.map((todo) => (
         <TodoItem
           key={todo.uuid}
           id={todo.uuid}
           title={todo.title}
           queryData={handleShowEditTodoData}
+          showTodoData={handleShowViewTodoData}
         />
       ))}
 
       <HorizontalLine />
+      <ViewTodoModal isVisible={showViewTodoModal} setShowViewTodoModal={setShowViewTodoModal} />
+
       <EditTodo
         isVisible={showEditTodo}
         setShowEditTodo={setShowEditTodo}
         data={todo}
         setTodo={setTodo}
+      />
+      <DeleteAllModal
+        isVisible={showDeleteAllModal}
+        setTodo={setTodo}
+        setShowDeleteAllModal={setShowDeleteAllModal}
       />
     </WrapperFlip>
   );

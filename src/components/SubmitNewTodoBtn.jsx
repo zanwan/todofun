@@ -7,18 +7,23 @@ const style = {
   marginTop: '51px',
 };
 
-export function SubmitNewTodoBtn({ todoData }) {
+export function SubmitNewTodoBtn({ todoData, setValue, setAddTodoForm }) {
   console.log('傳進來的資料', todoData);
 
   function handleAddtodo(e) {
     e.preventDefault();
     console.log('handleAddTodo');
-    db.todo.add({
-      uuid: uuid(),
-      title: todoData.title,
-      content: todoData.content,
-      done: false,
-    });
+    db.todo
+      .add({
+        uuid: uuid(),
+        title: todoData.title,
+        content: todoData.content,
+        done: false,
+      })
+      .then(() => {
+        setValue({ title: '', content: '' });
+        setAddTodoForm(false);
+      });
   }
 
   return (

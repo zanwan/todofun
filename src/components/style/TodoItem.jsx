@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import EyeIcon from '../svg/EyeIcon';
 import EditIcon from '../svg/EditIcon';
-import { Link } from 'react-router-dom';
-import { PaperGraphic } from '../style/Paper';
+
 const TodoTitle = styled.div`
   display: flex;
   flex-flow: row nowrap;
@@ -36,9 +35,8 @@ const TodoTitle = styled.div`
   }
 `;
 
-export function TodoItem({ id, title, queryData }) {
+export function TodoItem({ id, title, queryData, showTodoData }) {
   // State
-  const [viewTodo, setViewTodo] = useState(false);
 
   function handleEdit() {
     console.log('編輯 todo');
@@ -47,6 +45,7 @@ export function TodoItem({ id, title, queryData }) {
 
   function handleDetail() {
     console.log('查看 todo');
+    showTodoData(id);
   }
 
   return (

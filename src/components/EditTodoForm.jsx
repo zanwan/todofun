@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { PutTodoBtn } from './PutTodo';
+import { PutTodoBtn } from './PutTodoBtn';
+import { DeleteTodoBtn } from './DeleteTodoBtn';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const TodoFormUI = styled.form`
@@ -21,6 +22,17 @@ const TodoFormUI = styled.form`
   border: 4px solid black;
   border-bottom-width: 0px;
   border-radius: 20px 20px 0 0;
+`;
+
+const ActionBtnGroup = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+
+  & button {
+    margin: 0px 10px;
+  }
 `;
 
 const TitleInputUI = styled.input`
@@ -66,16 +78,16 @@ const animeForm = {
 };
 
 export const EditTodo = ({ isVisible, setShowEditTodo, data, setTodo }) => {
-  console.log('傳進來的data', data);
-
   const [value, setValue] = useState({ uuid: '', title: '', content: '', done: '' });
 
   useEffect(() => {
     setValue((prevState) => ({
       ...prevState,
+      id: data.id,
       uuid: data.uuid,
       title: data.title,
       content: data.content,
+      done: data.done,
     }));
   }, [data.uuid]);
 
@@ -120,7 +132,14 @@ export const EditTodo = ({ isVisible, setShowEditTodo, data, setTodo }) => {
                 rows='5'
                 placeholder='什麼有趣的事...'
               />
-              <PutTodoBtn todoData={value} setTodo={setTodo} />
+              <ActionBtnGroup>
+                <DeleteTodoBtn
+                  todoData={value}
+                  setTodo={setTodo}
+                  setShowEditTodo={setShowEditTodo}
+                />
+                <PutTodoBtn todoData={value} setTodo={setTodo} setShowEditTodo={setShowEditTodo} />
+              </ActionBtnGroup>
             </TodoFormUI>
           </motion.div>
         </motion.div>

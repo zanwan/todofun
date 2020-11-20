@@ -34,9 +34,10 @@ const TodoTitle = styled.div`
   }
 `;
 
-export function AlltodoTitle() {
+export function AlltodoTitle({ setShowDeleteAllModal }) {
   function handleDeleteAll() {
     console.log('刪除所有');
+    setShowDeleteAllModal(true);
   }
 
   return (
