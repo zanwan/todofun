@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PaperGraphic } from './style/Paper';
 import { Button_normal as Button } from './style/Button_normal';
+import { db } from '../db/indexedDB';
 
 const ModalUI = styled.div`
   position: absolute;
@@ -90,13 +91,58 @@ const animeForm = {
   hidden: { opacity: 0, scale: 0.5, y: '25vh' },
 };
 
-export function ViewTodoModal({ isVisible, setShowViewTodoModal }) {
+export function ViewTodoModal({ isVisible, data, setTodo, setShowViewTodoModal }) {
+  const [value, setValue] = useState({ uuid: '', title: '', content: '', done: '' });
+
+  useEffect(() => {
+    setValue((prevState) => ({
+      ...prevState,
+      id: data.id,
+      uuid: data.uuid,
+      title: data.title,
+      content: data.content,
+      done: data.done,
+    }));
+  }, [data.uuid]);
+
   function handleCloseModel(e) {
     if (e.target.id === 'backdrop') {
       setShowViewTodoModal(false);
     } else if (e.target.textContent === '放回罐罐') {
       setShowViewTodoModal(false);
     }
+  }
+
+  function handleConfirmDone(e) {
+    e.preventDefault();
+    db.todo.update(value.id, { done: true }).then((updated) => {
+      if (updated) {
+        console.log('更新完成');
+        setTodo((prevState) => ({
+          ...prevState,
+          done: true,
+        }));
+        setShowViewTodoModal(false);
+      } else {
+        console.log('發生錯誤');
+      }
+    });
+  }
+
+  function handleUnDone(e) {
+    e.preventDefault();
+    db.todo.update(value.id, { done: false }).then((updated) => {
+      if (updated) {
+        console.log('更新完成');
+        setTodo((prevState) => ({
+          ...prevState,
+          done: false,
+        }));
+        setShowViewTodoModal(false);
+      } else {
+        console.log('發生錯誤');
+      }
+    });
   }
 
   return (
@@ -115,14 +161,16 @@ export function ViewTodoModal({ isVisible, setShowViewTodoModal }) {
             <ModalUI>
               <ContentWrapper>
                 <Content>
-                  <h1>嗨囉</h1>
-                  <p>
-                    有關 英語 (美國) 的問題start 和 get started
-                    的差別在哪裡？如果不好說明，請提供一些例句。
-                  </p>
+                  <h1>{value.title}</h1>
+                  <p>{value.content}</p>
                   <ActionBtnGroup>
-                    <Button>確認完成</Button>
-                    <Button onClick={handleCloseModel}>放回罐罐</Button>
+                    {!value.done && (
+                      <Button onClick={handleConfirmDone} style={{ background: 'green' }}>
+                        確認完成
+                      </Button>
+                    )}
+                    {!value.done && <Button onClick={handleCloseModel}>放回罐罐</Button>}
+                    {value.done && <Button onClick={handleUnDone}>放回罐罐</Button>}
                   </ActionBtnGroup>
                 </Content>
               </ContentWrapper>

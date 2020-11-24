@@ -1,13 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { WrapperFlip } from '../components/style/WrapperFlip';
 import { Jar } from '../components/JarIcon';
 import { AddTodoBtn } from '../components/AddTodoBtn';
 import { AllTodoBtn } from '../components/AllTodoBtn';
 import { AddTodo } from '../components/AddTodoFrom';
+import { ViewTodoModal } from '../components/ViewTodoModal';
+import { db } from '../db/indexedDB';
 
 export const Home = ({ pathState }) => {
+  const [todoLength, setTodoLength] = useState([]);
   const [showAddTodoForm, setAddTodoForm] = useState(false);
+  const [showViewTodoModal, setShowViewTodoModal] = useState(false);
+  const [todo, setTodo] = useState({});
+
+  useEffect(() => {
+    db.todo
+      .filter((todo) => todo.done === false)
+      .toArray()
+      .then((data) => {
+        setTodoLength(data);
+      });
+  }, []);
+
+  function handleShowViewTodo() {
+    const random = Math.round(Math.random() * todoLength.length);
+    let keyArray = [];
+    db.todo
+      .each((todo) => {
+        keyArray.push(todo.id);
+      })
+      .then(() => {
+        db.todo
+          .filter((todo) => todo.id === keyArray[random])
+          .toArray()
+          .then((data) => {
+            setTodo(data[0]);
+            setShowViewTodoModal(true);
+          });
+      });
+  }
 
   const handleShowAddTodo = () => {
     setAddTodoForm(true);
@@ -69,7 +101,7 @@ export const Home = ({ pathState }) => {
         initial={pathState.fromIntro ? 'idle' : false}
         animate='show'
         whileHover='hover'
-        onClick={handleGetTodo}
+        onClick={handleShowViewTodo}
         style={{ cursor: 'pointer' }}
       >
         <Jar />
@@ -80,6 +112,12 @@ export const Home = ({ pathState }) => {
       </div>
       <AllTodoBtn title='查看所有' />
       <AddTodo isVisible={showAddTodoForm} setAddTodoForm={setAddTodoForm} />
+      <ViewTodoModal
+        isVisible={showViewTodoModal}
+        data={todo}
+        setTodo={setTodo}
+        setShowViewTodoModal={setShowViewTodoModal}
+      />
     </WrapperFlip>
   );
 };

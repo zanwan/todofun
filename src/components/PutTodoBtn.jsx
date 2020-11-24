@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Button_normal as Button } from './style/Button_normal';
 import { db } from '../db/indexedDB';
-import { uuid } from '../utils/uuid.js';
 
 const style = {
   marginTop: '51px',
 };
 
-export function PutTodoBtn({ todoData, setTodo }) {
+export function PutTodoBtn({ todoData, setTodo, setShowEditTodo }) {
   console.log('傳進來的修改資料', todoData);
 
   function handlePutTodo(e) {
@@ -20,6 +19,7 @@ export function PutTodoBtn({ todoData, setTodo }) {
       })
       .then(() => {
         setTodo({ title: todoData.title, content: todoData.content });
+        setShowEditTodo(false);
       });
   }
 

@@ -10,6 +10,7 @@ import { HorizontalLine } from '../components/style/HorizontalLine';
 import { ViewTodoModal } from '../components/ViewTodoModal';
 import { EditTodo } from '../components/EditTodoForm';
 import { DeleteAllModal } from '../components/DeleteAllComfirmModal';
+import { TodoDoneItem } from '../components/style/TodoDoneItem';
 // DB
 import { db } from '../db/indexedDB';
 
@@ -38,16 +39,36 @@ export function AllTodo() {
   const [todo, setTodo] = useState({});
   const [showDeleteAllModal, setShowDeleteAllModal] = useState(false);
   const [showViewTodoModal, setShowViewTodoModal] = useState(false);
-
+  const [doneTodos, setDoneTodos] = useState([{ uuid: 0, title: '' }]);
+  const [showDoneTodo, setShowDoneTodo] = useState(true);
   // 從 indexedDB 撈資料
-  let todosData;
+
   async function getTodoData() {
+    let todosData;
     try {
-      todosData = await db.todo.orderBy('id').reverse().toArray();
+      todosData = await db.todo
+        .orderBy('id')
+        .filter((todo) => todo.done === false)
+        .reverse()
+        .toArray();
     } catch (error) {
       console.log(error);
     }
     return todosData;
+  }
+
+  async function getDoneTodoData() {
+    let doneTodosData;
+    try {
+      doneTodosData = await db.todo
+        .orderBy('id')
+        .filter((todo) => todo.done === true)
+        .reverse()
+        .toArray();
+    } catch (error) {
+      console.log(error);
+    }
+    return doneTodosData;
   }
 
   // useEffect
@@ -55,11 +76,17 @@ export function AllTodo() {
     getTodoData().then((res) => {
       setTodos(res);
     });
+    getDoneTodoData().then((res) => {
+      setDoneTodos(res);
+    });
   }, []);
 
   useEffect(() => {
     getTodoData().then((res) => {
       setTodos(res);
+    });
+    getDoneTodoData().then((res) => {
+      setDoneTodos(res);
     });
   }, [todo]);
 
@@ -100,8 +127,24 @@ export function AllTodo() {
         />
       ))}
 
-      <HorizontalLine />
-      <ViewTodoModal isVisible={showViewTodoModal} setShowViewTodoModal={setShowViewTodoModal} />
+      <HorizontalLine showDoneTodo={showDoneTodo} setShowDoneTodo={setShowDoneTodo} />
+      {showDoneTodo &&
+        doneTodos.map((doneTodo) => (
+          <TodoDoneItem
+            key={doneTodo.uuid}
+            id={doneTodo.uuid}
+            title={doneTodo.title}
+            queryData={handleShowEditTodoData}
+            showTodoData={handleShowViewTodoData}
+          />
+        ))}
+
+      <ViewTodoModal
+        isVisible={showViewTodoModal}
+        data={todo}
+        setTodo={setTodo}
+        setShowViewTodoModal={setShowViewTodoModal}
+      />
 
       <EditTodo
         isVisible={showEditTodo}
