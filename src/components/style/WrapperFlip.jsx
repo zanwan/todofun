@@ -12,6 +12,7 @@ export const WrapperFlip = styled(motion.div)`
   width: calc(100% / 2);
   min-width: 375px;
   height: 100vh;
-  padding: 120px 15px 0px 15px;
+  padding: 120px 15px 100px 15px;
   margin: auto;
+  overflow-y: scroll;
 `;

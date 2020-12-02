@@ -1,18 +1,15 @@
 import * as React from 'react';
-import { Button_normal as Button } from '../components/style/Button_normal';
-import { db } from '../db/indexedDB';
-import { uuid } from '../utils/uuid.js';
+import { Button_normal as Button } from '../style/Button_normal';
+import { db } from '../../db/indexedDB';
+import { uuid } from '../../utils/uuid.js';
 
 const style = {
   marginTop: '51px',
 };
 
-export function SubmitNewTodoBtn({ todoData, setValue, setAddTodoForm }) {
-  console.log('傳進來的資料', todoData);
-
+export function SubmitNewTodoBtn({ todoData, setValue, setAddTodoForm, handleRaffleTodo }) {
   function handleAddtodo(e) {
     e.preventDefault();
-    console.log('handleAddTodo');
     db.todo
       .add({
         uuid: uuid(),
@@ -22,6 +19,9 @@ export function SubmitNewTodoBtn({ todoData, setValue, setAddTodoForm }) {
       })
       .then(() => {
         setValue({ title: '', content: '' });
+        if (handleRaffleTodo !== undefined) {
+          handleRaffleTodo();
+        }
         setAddTodoForm(false);
       });
   }

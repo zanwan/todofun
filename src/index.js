@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { ResetStyle, GlobalStyle } from './components/globalStyle';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
@@ -10,9 +10,9 @@ ReactDOM.render(
   <div>
     <ResetStyle />
     <GlobalStyle />
-    <BrowserRouter>
+    <Router>
       <App />
-    </BrowserRouter>
+    </Router>
   </div>,
   document.getElementById('root'),
 );

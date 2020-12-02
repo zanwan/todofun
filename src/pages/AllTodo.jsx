@@ -1,45 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { WrapperFlip } from '../components/style/WrapperFlip';
-import { motion } from 'framer-motion';
-import { Button_normal as Button } from '../components/style/Button_normal';
-import { Link } from 'react-router-dom';
-import { AlltodoTitle, AllTodoTitle } from '../components/style/AllTodoTitle';
-import { TodoItem } from '../components/style/TodoItem';
-import { HorizontalLine } from '../components/style/HorizontalLine';
-import { ViewTodoModal } from '../components/ViewTodoModal';
-import { EditTodo } from '../components/EditTodoForm';
-import { DeleteAllModal } from '../components/DeleteAllComfirmModal';
-import { TodoDoneItem } from '../components/style/TodoDoneItem';
-// DB
 import { db } from '../db/indexedDB';
+// Controller
+import { AllTodoTitle } from '../components/controller/AllTodoTitle';
+import { HorizontalLine } from '../components/controller/HorizontalLine';
+import { DeleteAllModal } from '../components/controller/DeleteAllComfirmModal';
+import { TodoDoneItem } from '../components/controller/TodoDoneItem';
+import { EditTodo } from '../components/controller/EditTodoForm';
+import { ViewTodoModal } from '../components/controller/ViewTodoModal';
 
-const animFlipBack = {
-  hidden: {
-    rotateY: -85,
-  },
-  show: {
-    rotateY: 0,
-    transition: {
-      duration: 0.2,
-    },
-  },
-  exit: {
-    rotateY: 85,
-    transition: {
-      duration: 0.2,
-    },
-  },
-};
+// UI Styled
+import { WrapperFlip } from '../components/style/WrapperFlip';
+import { TodoItem } from '../components/style/TodoItem';
+
+// Animation
+import { flipPage } from '../animation/homeMotion';
 
 export function AllTodo() {
   // state
-  const [todos, setTodos] = useState([{ uuid: 0, title: '' }]);
+  const [todos, setTodos] = useState([{ uuid: 0 }]);
   const [showEditTodo, setShowEditTodo] = useState(false);
   const [todo, setTodo] = useState({});
   const [showDeleteAllModal, setShowDeleteAllModal] = useState(false);
   const [showViewTodoModal, setShowViewTodoModal] = useState(false);
-  const [doneTodos, setDoneTodos] = useState([{ uuid: 0, title: '' }]);
+  const [doneTodos, setDoneTodos] = useState([{ uuid: 0 }]);
   const [showDoneTodo, setShowDoneTodo] = useState(true);
   // 從 indexedDB 撈資料
 
@@ -79,7 +62,7 @@ export function AllTodo() {
     getDoneTodoData().then((res) => {
       setDoneTodos(res);
     });
-  }, []);
+  }, [showViewTodoModal]);
 
   useEffect(() => {
     getTodoData().then((res) => {
@@ -115,8 +98,8 @@ export function AllTodo() {
   }
 
   return (
-    <WrapperFlip variants={animFlipBack} initial='hidden' animate='show' exit='exit'>
-      <AlltodoTitle setShowDeleteAllModal={setShowDeleteAllModal} />
+    <WrapperFlip variants={flipPage} initial='hidden' animate='show' exit='exit'>
+      <AllTodoTitle setShowDeleteAllModal={setShowDeleteAllModal} />
       {todos.map((todo) => (
         <TodoItem
           key={todo.uuid}

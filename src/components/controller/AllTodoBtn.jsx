@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button_normal as Button } from '../components/style/Button_normal';
+import { Button_normal as Button } from '../style/Button_normal';
 import { Link } from 'react-router-dom';
 
 export function AllTodoBtn(props) {

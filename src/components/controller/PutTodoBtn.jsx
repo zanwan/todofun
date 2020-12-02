@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Button_normal as Button } from './style/Button_normal';
-import { db } from '../db/indexedDB';
+import { Button_normal as Button } from '../style/Button_normal';
+import { db } from '../../db/indexedDB';
 
 const style = {
   marginTop: '51px',
