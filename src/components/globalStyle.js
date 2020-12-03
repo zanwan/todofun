@@ -43,6 +43,7 @@ body {
     width:100%;
     height:100%;
     line-height: 1;
+    background: #f0efeb;
 }
 ol, ul {
   list-style: none;

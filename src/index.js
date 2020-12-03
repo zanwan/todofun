@@ -10,7 +10,6 @@ ReactDOM.render(
   <div>
     <ResetStyle />
     <GlobalStyle />
-
     <Router>
       <App />
     </Router>
