@@ -29,7 +29,7 @@
     "workbox-strategies": "^5.1.3",
     "workbox-streams": "^5.1.3"
   },
-  "homepage": "/todofun",
+  "homepage": "https://cybershota.github.io/todofun",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",

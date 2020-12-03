@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { ResetStyle, GlobalStyle } from './components/globalStyle';
-import { HashRouter as Router, BrowserRouter } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
@@ -10,11 +10,10 @@ ReactDOM.render(
   <div>
     <ResetStyle />
     <GlobalStyle />
-    <BrowserRouter basename='/todofun'>
-      <Router>
-        <App />
-      </Router>
-    </BrowserRouter>
+
+    <Router>
+      <App />
+    </Router>
   </div>,
   document.getElementById('root'),
 );
