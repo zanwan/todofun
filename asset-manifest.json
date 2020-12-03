@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/todofun/static/js/main.0b32c51a.chunk.js",
-    "main.js.map": "/todofun/static/js/main.0b32c51a.chunk.js.map",
+    "main.js": "/todofun/static/js/main.a1c7edd0.chunk.js",
+    "main.js.map": "/todofun/static/js/main.a1c7edd0.chunk.js.map",
     "runtime-main.js": "/todofun/static/js/runtime-main.275b219f.js",
     "runtime-main.js.map": "/todofun/static/js/runtime-main.275b219f.js.map",
     "static/js/2.ce4ac87f.chunk.js": "/todofun/static/js/2.ce4ac87f.chunk.js",
@@ -16,6 +16,6 @@
   "entrypoints": [
     "static/js/runtime-main.275b219f.js",
     "static/js/2.ce4ac87f.chunk.js",
-    "static/js/main.0b32c51a.chunk.js"
+    "static/js/main.a1c7edd0.chunk.js"
   ]
 }
