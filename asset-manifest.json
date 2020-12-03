@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.js": "/cybershota/todofun/static/js/main.390dcbf1.chunk.js",
+    "main.js.map": "/cybershota/todofun/static/js/main.390dcbf1.chunk.js.map",
+    "runtime-main.js": "/cybershota/todofun/static/js/runtime-main.d1bd1549.js",
+    "runtime-main.js.map": "/cybershota/todofun/static/js/runtime-main.d1bd1549.js.map",
+    "static/js/2.42392ab0.chunk.js": "/cybershota/todofun/static/js/2.42392ab0.chunk.js",
+    "static/js/2.42392ab0.chunk.js.map": "/cybershota/todofun/static/js/2.42392ab0.chunk.js.map",
+    "static/js/3.aad854be.chunk.js": "/cybershota/todofun/static/js/3.aad854be.chunk.js",
+    "static/js/3.aad854be.chunk.js.map": "/cybershota/todofun/static/js/3.aad854be.chunk.js.map",
+    "index.html": "/cybershota/todofun/index.html",
+    "service-worker.js": "/cybershota/todofun/service-worker.js",
+    "service-worker.js.map": "/cybershota/todofun/service-worker.js.map",
+    "static/js/2.42392ab0.chunk.js.LICENSE.txt": "/cybershota/todofun/static/js/2.42392ab0.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d1bd1549.js",
+    "static/js/2.42392ab0.chunk.js",
+    "static/js/main.390dcbf1.chunk.js"
+  ]
+}
