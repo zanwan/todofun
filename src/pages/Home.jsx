@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../db/indexedDB';
 // Component
 import { Wrapper } from '../components/style/Wrapper';
-import { Jar } from '../components/svg/JarIcon';
+import JarIconDesign from '../components/svg/JarDesign';
 import { AddTodoBtn } from '../components/controller/AddTodoBtn';
 import { AllTodoBtn } from '../components/controller/AllTodoBtn';
 import { AddTodoModal } from '../components/controller/AddTodoModal';
 import { ViewTodoModal } from '../components/controller/ViewTodoModal';
+import { Counter } from '../components/controller/Counter';
 // Animation
 import { motion } from 'framer-motion';
 import { wrapperDetectRoute, jarDetectRoute, flipPage, jarMotion } from '../animation/homeMotion';
@@ -58,7 +59,8 @@ export const Home = ({ pathState }) => {
         onClick={handleShowViewTodo}
         style={{ cursor: 'pointer' }}
       >
-        <Jar />
+        <Counter count={raffleTodo.length} />
+        <JarIconDesign />
       </motion.div>
 
       <div onClick={handleShowAddTodo}>

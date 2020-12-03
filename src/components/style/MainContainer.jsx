@@ -7,5 +7,5 @@ export const MainContainer = styled.div`
   min-width: 375px;
   height: 100vh;
   margin: auto;
-  background: #edf2f4;
+  background: #f0efeb;
 `;

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+// Not Using for Now
+
 function JarSVG() {
   return (
     <svg

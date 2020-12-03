@@ -47,7 +47,7 @@ export const jarMotion = {
     },
   },
   show: {
-    scale: 1.3,
+    scale: 1.5,
     transition: {
       duration: 0.7,
     },

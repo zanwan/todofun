@@ -3,7 +3,7 @@ import { Button_normal as Button } from '../style/Button_normal';
 import { db } from '../../db/indexedDB';
 
 const style = {
-  marginTop: '51px',
+  marginTop: '5px',
 };
 
 export function PutTodoBtn({ todoData, setTodo, setShowEditTodo }) {

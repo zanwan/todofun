@@ -13,7 +13,7 @@ export const TodoFormUI = styled.form`
   margin-right: auto;
   width: calc(100% / 2);
   min-width: 345px;
-  height: 400px;
+  height: 450px;
   background-color: #ffffff;
   border: 4px solid black;
   border-bottom-width: 0px;
@@ -22,12 +22,12 @@ export const TodoFormUI = styled.form`
 
 export const ActionBtnGroup = styled.div`
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
 
   & button {
-    margin: 0px 10px;
+    margin: 0px 5px 5px 0px;
   }
 `;
 

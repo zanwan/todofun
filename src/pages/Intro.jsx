@@ -3,7 +3,7 @@ import { StartBtn } from '../components/controller/StartBtn';
 import { OnOffLineHint } from '../components/controller/onOffLineHint';
 // UI styled
 import { Wrapper } from '../components/style/Wrapper';
-import { Jar } from '../components/svg/JarIcon';
+import JarIconDesign from '../components/svg/JarDesign';
 
 // Animation
 import { dissolve } from '../animation/dissolve';
@@ -11,7 +11,7 @@ import { dissolve } from '../animation/dissolve';
 export function Intro() {
   return (
     <Wrapper variants={dissolve} initial='idle' animate='show' exit='exit'>
-      <Jar />
+      <JarIconDesign />
       <IntroCopy />
       <StartBtn title='開始' />
       <OnOffLineHint />
