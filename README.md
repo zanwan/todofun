@@ -4,7 +4,7 @@
 
 經典 todo list 練習的改作。使用 React 框架與 Framer motion 製作可隨機抽籤待辦事項的應用，讓 todo list 更有趣！
 
-- [Live Demo](https://cybershota.github.io/todofun/#/)
+- [Live Demo](https://zanwan.github.io/todofun/#/)
 
 ## 待辦抽籤系統
 
